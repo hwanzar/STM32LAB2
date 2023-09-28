@@ -22,6 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "7seg.h"
+#include "software_timer.h"
 
 /* USER CODE END Includes */
 
@@ -63,6 +65,17 @@ static void MX_TIM2_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+void EN_Turn(int stat){
+	if (stat == 0) {
+		HAL_GPIO_WritePin(EN0_GPIO_Port,EN0_Pin, 0);
+		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+	}
+	if (stat == 1){
+		HAL_GPIO_WritePin(EN0_GPIO_Port,EN0_Pin, 1);
+		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 0);
+	}
+}
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -89,13 +102,28 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer1(50);
+  int state = 0;
   while (1)
   {
+	  if(timer1_flag == 1){\
+		  setTimer1(50);
+	  	  if(state == 0){
+	  		  EN_Turn(0);
+	  		  display7SEG(1);
+	  	  }
+	  	  if(state == 1){
+	  		  EN_Turn(1);
+	  		  display7SEG(2);
+	  	  }
+	  	  state = 1 - state;
+
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -222,7 +250,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timerRun();
+}
 /* USER CODE END 4 */
 
 /**
