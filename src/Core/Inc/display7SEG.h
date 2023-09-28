@@ -10,6 +10,6 @@
 
 #include "main.h"
 
-void display7SEG(int numb);
+void display7SEG(int num);
 
 #endif /* INC_DISPLAY7SEG_H_ */
