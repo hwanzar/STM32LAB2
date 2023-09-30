@@ -19,8 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "software_timer.h"
 #include "display7SEG.h"
+#include "software_timer.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -56,7 +56,6 @@ static void MX_GPIO_Init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
 const int MAX_LED = 4;
 int index_led = 0;
 int led_buffer[] = {1,2,3,4};
@@ -134,9 +133,10 @@ void updateLEDMatrix(int index){
 		case 0:
 			HAL_GPIO_TogglePin(ENM7_GPIO_Port, ENM7_Pin);
 			HAL_GPIO_TogglePin(ENM0_GPIO_Port, ENM0_Pin);
+			HAL_GPIO_TogglePin(ROW0_GPIO_Port, ROW0_Pin);
 			break;
 		case 1:
-//			HAL_GPIO_TogglePin(ENM0_GPIO_Port, ENM0_Pin);
+			HAL_GPIO_TogglePin(ENM0_GPIO_Port, ENM0_Pin);
 			HAL_GPIO_TogglePin(ENM1_GPIO_Port, ENM1_Pin);
 			break;
 		case 2:
@@ -227,36 +227,30 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//	  if(timer_flag[0] == 1){
-//		  setTimer(0, 100);
-//		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-////		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//	  }
-//	  if(timer_flag[1] == 1){
-//		  setTimer(1, 25);
-//		  update7SEG(index_led);
-//		  if(index_led >= MAX_LED-1) index_led = 0;
-//		  else index_led++;
-//	  }
-//	  if(timer_flag[2] == 1){
-//		  setTimer(2, 100);
-//		  updateClockBuffer();
-//	  }
-//	  if(timer_flag[3] == 1){
-//		  setTimer(3,100);
-////		  index_led_matrix=index_led_matrix>=MAX_LED_MATRIX-1?0:index_led_matrix+1;
-//		  updateLEDMatrix(1);
-//	  }
-	  HAL_GPIO_TogglePin(ENM7_GPIO_Port, ENM7_Pin);
-
-	  HAL_GPIO_TogglePin(ENM1_GPIO_Port, ENM1_Pin);
-	  HAL_Delay(1000);
-
+	  if(timer_flag[0] == 1){
+		  setTimer(0, 100);
+		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+//		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
+	  if(timer_flag[1] == 1){
+		  setTimer(1, 25);
+		  update7SEG(index_led);
+		  if(index_led >= MAX_LED-1) index_led = 0;
+		  else index_led++;
+	  }
+	  if(timer_flag[2] == 1){
+		  setTimer(2, 100);
+		  updateClockBuffer();
+	  }
+	  if(timer_flag[3] == 1){
+		  setTimer(3,25);
+		  index_led_matrix=index_led_matrix>=MAX_LED_MATRIX-1?0:index_led_matrix+1;
+		  updateLEDMatrix(index_led_matrix);
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -351,10 +345,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, ENM0_Pin|DOT_Pin|LED_RED_Pin|EN0_Pin
-                          |EN1_Pin|EN2_Pin|EN3_Pin|ENM2_Pin
-                          |ENM3_Pin|ENM4_Pin|ENM5_Pin|ENM6_Pin
-                          |ENM7_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, ENM0_Pin|ENM1_Pin|DOT_Pin|LED_RED_Pin
+                          |EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin
+                          |ENM2_Pin|ENM3_Pin|ENM4_Pin|ENM5_Pin
+                          |ENM6_Pin|ENM7_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|ROW2_Pin
@@ -362,24 +356,18 @@ static void MX_GPIO_Init(void)
                           |ROW7_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin
                           |SEG6_Pin|ROW0_Pin|ROW1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : ENM0_Pin DOT_Pin LED_RED_Pin EN0_Pin
-                           EN1_Pin EN2_Pin EN3_Pin ENM2_Pin
-                           ENM3_Pin ENM4_Pin ENM5_Pin ENM6_Pin
-                           ENM7_Pin */
-  GPIO_InitStruct.Pin = ENM0_Pin|DOT_Pin|LED_RED_Pin|EN0_Pin
-                          |EN1_Pin|EN2_Pin|EN3_Pin|ENM2_Pin
-                          |ENM3_Pin|ENM4_Pin|ENM5_Pin|ENM6_Pin
-                          |ENM7_Pin;
+  /*Configure GPIO pins : ENM0_Pin ENM1_Pin DOT_Pin LED_RED_Pin
+                           EN0_Pin EN1_Pin EN2_Pin EN3_Pin
+                           ENM2_Pin ENM3_Pin ENM4_Pin ENM5_Pin
+                           ENM6_Pin ENM7_Pin */
+  GPIO_InitStruct.Pin = ENM0_Pin|ENM1_Pin|DOT_Pin|LED_RED_Pin
+                          |EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin
+                          |ENM2_Pin|ENM3_Pin|ENM4_Pin|ENM5_Pin
+                          |ENM6_Pin|ENM7_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : ENM1_Pin */
-  GPIO_InitStruct.Pin = ENM1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ENM1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin ROW2_Pin
                            ROW3_Pin ROW4_Pin ROW5_Pin ROW6_Pin
