@@ -67,38 +67,47 @@ void update7SEG(int index){
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
 		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
-		display7SEG(led_buffer[0]);
 		break;
 	case 1:
 		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 0);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
 		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
-		display7SEG(led_buffer[1]);
 		break;
 	case 2:
 		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 0);
 		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
-		display7SEG(led_buffer[2]);
 		break;
 	case 3:
 		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
 		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 0);
-		display7SEG(led_buffer[3]);
 		break;
 	default:
 		break;
 	}
+	display7SEG(led_buffer[index]);
 }
 
 
 // clock buffer function
 int hour = 15, minute = 8, second = 50;
 void updateClockBuffer(){
+	second++;
+	if(second >= 60){
+		second = 0;
+		minute++;
+	}
+	if(minute >= 60) {
+		minute = 0;
+		hour++;
+	}
+	if(hour >= 24){
+		hour = 0;
+	}
 	led_buffer[0] = hour / 10;
 	led_buffer[1] = hour % 10;
 	led_buffer[2] = minute / 10;
@@ -170,18 +179,6 @@ int main(void)
 		  }
 		  if(timer3_flag == 1){
 			  setTimer3(100);
-			  second++;
-			  if(second >= 60){
-				  second = 0;
-				  minute++;
-			  }
-			  if(minute >= 60) {
-				  minute = 0;
-				  hour++;
-			  }
-			  if(hour >= 24){
-				  hour = 0;
-			  }
 			  updateClockBuffer();
 		  }
 
