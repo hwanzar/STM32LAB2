@@ -133,7 +133,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-  setTimer1(3);
+  setTimer1(2);
   setTimer2(3);
   //init state
   HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);

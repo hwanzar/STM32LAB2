@@ -367,8 +367,8 @@ int main(void)
  8000330:	4825      	ldr	r0, [pc, #148]	; (80003c8 <main+0xac>)
  8000332:	f001 f991 	bl	8001658 <HAL_TIM_Base_Start_IT>
   /* USER CODE END 2 */
-  setTimer1(3);
- 8000336:	2003      	movs	r0, #3
+  setTimer1(2);
+ 8000336:	2002      	movs	r0, #2
  8000338:	f000 f93c 	bl	80005b4 <setTimer1>
   setTimer2(3);
  800033c:	2003      	movs	r0, #3
