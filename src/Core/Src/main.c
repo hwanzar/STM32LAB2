@@ -113,9 +113,9 @@ void updateClockBuffer(){
 	led_buffer[3] = minute % 10;
 }
 const int MAX_LED_MATRIX = 8;
-int index_led_matrix = 1;
+int index_led_matrix = 0;
 uint16_t matrix_buffer[8] = {0x0004 , 0x0008 , 0x0400 , 0x0800 , 0x1000 ,0x2000 , 0x4000, 0x8000 };
-uint16_t matrix_row[8] = {0xFFFF,0x0300,0x0100,0xCC00,0xCC00,0x0100,0x0300,0xFFFF};
+uint16_t matrix_row[8] = {0xC3FF,0xC3FF,0xC3FF,0xC3FF,0x00FF,0x81FF,0xC3FF,0xE7FF};
 void resetMatrix(){
 	HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, 1);
 	HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, 1);
@@ -130,6 +130,7 @@ void updateLEDMatrix(int index){
 	switch(index){
 		case 0:
 			resetMatrix();
+			HAL_GPIO_WritePin(GPIOA, matrix_buffer[0], 0);
 			break;
 		case 1:
 			resetMatrix();
@@ -154,10 +155,10 @@ void updateLEDMatrix(int index){
 		case 6:
 			resetMatrix();
 			HAL_GPIO_WritePin(GPIOA, matrix_buffer[6], 0);
-
 			break;
 		case 7:
 			resetMatrix();
+			HAL_GPIO_WritePin(GPIOA, matrix_buffer[7], 0);
 			break;
 		default:
 			break;
@@ -235,7 +236,7 @@ int main(void)
 	  if(timer_flag[3] == 1){
 		  setTimer(3,5);
 		  updateLEDMatrix(index_led_matrix++);
-		  if(index_led_matrix >= MAX_LED_MATRIX-1) index_led_matrix = 1;
+		  if(index_led_matrix >= MAX_LED_MATRIX) index_led_matrix = 0;
 	  }
     /* USER CODE BEGIN 3 */
   }
