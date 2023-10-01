@@ -92,8 +92,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
-  setTimer1(2);
-  setTimer2(3);
+  setTimer(0,2);
+  setTimer(1,3);
   //init state
   int state = 0;
   HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
@@ -107,12 +107,12 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	    /* USER CODE END WHILE */
-		  if(timer1_flag == 1){
-			  setTimer1(100);
+		  if(timer_flag[0] == 1){
+			  setTimer(0, 100);
 			  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		  }
-		  if(timer2_flag == 1){
-			  setTimer2(50);
+		  if(timer_flag[1] == 1){
+			  setTimer(1, 50);
 			  switch(state){
 				  case 0:
 					  HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 0);
@@ -148,7 +148,8 @@ int main(void)
 					  break;
 				  default:
 					  break;
-			  }}
+			  }
+		  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
