@@ -142,9 +142,9 @@ int main(void)
 
 
   // init timer
-  setTimer1(2);
-  setTimer2(3);
-  setTimer3(5);
+  setTimer(0, 2);
+  setTimer(1, 3);
+  setTimer(2, 5);
   //init state
   HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
   HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
@@ -158,18 +158,18 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	    /* USER CODE END WHILE */
-		  if(timer1_flag == 1){
-			  setTimer1(100);
+		  if(timer_flag[0] == 1){
+			  setTimer(0, 100);
 			  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		  }
-		  if(timer2_flag == 1){
-			  setTimer2(25);
+		  if(timer_flag[1] == 1){
+			  setTimer(1, 25);
 			  update7SEG(index_led);
 			  if(index_led >= MAX_LED-1) index_led = 0;
 			  else index_led++;
 		  }
-		  if(timer3_flag == 1){
-			  setTimer3(100);
+		  if(timer_flag[2] == 1){
+			  setTimer(2, 100);
 			  second++;
 			  if(second >= 60){
 				  second = 0;
