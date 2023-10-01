@@ -125,7 +125,6 @@ void resetMatrix(){
 	HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, 1);
 	HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, 1);
 	HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, 1);
-	HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, 1);
 	HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1);
 
 	HAL_GPIO_WritePin(ROW0_GPIO_Port, ROW0_Pin, 1);
