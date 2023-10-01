@@ -117,7 +117,7 @@ int index_led_matrix = 0;
 uint16_t matrix_buffer[8] = {0x0004 , 0x0008 , 0x0400 , 0x0800 , 0x1000 ,0x2000 , 0x4000, 0x8000 };
 //uint16_t matrix_row[8] = {0xE7FF,0xC3FF,0x81FF,0x00FF,0xC3FF,0xC3FF,0xC3FF,0xC3FF};
 //uint16_t matrix_row[8] = {0xFFFF,0x0300,0x0100,0xCC00,0xCC00,0x0100,0x0300,0xFFFF};
-uint32_t matrix_row[8] = {0, ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin, ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin, ROW0_Pin|ROW1_Pin|ROW4_Pin|ROW5_Pin,ROW0_Pin|ROW1_Pin|ROW4_Pin|ROW5_Pin,ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,0};
+uint16_t matrix_row[8] = {0, ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin, ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin, ROW0_Pin|ROW1_Pin|ROW4_Pin|ROW5_Pin,ROW0_Pin|ROW1_Pin|ROW4_Pin|ROW5_Pin,ROW1_Pin|ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,ROW2_Pin|ROW3_Pin|ROW4_Pin|ROW5_Pin|ROW6_Pin|ROW7_Pin,0};
 void resetMatrix(){
 	HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, 1);
 	HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, 1);
