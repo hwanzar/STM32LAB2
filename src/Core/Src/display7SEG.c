@@ -8,19 +8,46 @@
 
 #include "main.h"
 #include "display7SEG.h"
-
-void display7SEG(int num) {
-	if(num <= 9 && num >= 0){
-		if(num == 0) GPIOB->ODR = 0x40;
-		if(num == 1) GPIOB->ODR = 0x79;
-		if(num == 2) GPIOB->ODR = 0x24;
-		if(num == 3) GPIOB->ODR = 0x30;
-		if(num == 4) GPIOB->ODR = 0x19;
-		if(num == 5) GPIOB->ODR = 0x12;
-		if(num == 6) GPIOB->ODR = 0x02;
-		if(num == 7) GPIOB->ODR = 0x78;
-		if(num == 8) GPIOB->ODR = 0x00;
-		if(num == 9) GPIOB->ODR = 0x10;
+void display7SEG(int counter){
+	if(counter == 0){
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG6_Pin, 1);
 	}
-	else GPIOB->ODR = 0x7F;
+	else if(counter == 1){
+		HAL_GPIO_WritePin(GPIOB,SEG1_Pin|SEG2_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin, 1);
+	}
+	else if(counter == 2){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG1_Pin|SEG3_Pin|SEG4_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG2_Pin|SEG5_Pin, 1);
+	}
+	else if(counter == 3){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG4_Pin|SEG5_Pin, 1);
+	}
+	else if (counter == 4){
+		HAL_GPIO_WritePin(GPIOB,SEG1_Pin|SEG2_Pin|SEG5_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG3_Pin|SEG4_Pin, 1);
+	}
+	else if (counter == 5){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG2_Pin|SEG3_Pin|SEG5_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin|SEG4_Pin, 1);
+	}
+	else if (counter == 6){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG2_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG1_Pin, 1);
+	}
+	else if (counter == 7){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG1_Pin|SEG2_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB, SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin, 1);
+	}
+	else if (counter == 8){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin|SEG6_Pin, 0);
+	}
+	else if (counter == 9){
+		HAL_GPIO_WritePin(GPIOB,SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin|SEG5_Pin|SEG6_Pin, 0);
+		HAL_GPIO_WritePin(GPIOB,SEG4_Pin, 1);
+	}
 }
+
+

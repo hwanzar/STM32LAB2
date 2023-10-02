@@ -227,21 +227,21 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//	  if(timer_flag[0] == 1){
-//		  setTimer(0, 100);
-//		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-////		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//	  }
-//	  if(timer_flag[1] == 1){
-//		  setTimer(1, 25);
-//		  update7SEG(index_led);
-//		  if(index_led >= MAX_LED-1) index_led = 0;
-//		  else index_led++;
-//	  }
-//	  if(timer_flag[2] == 1){
-//		  setTimer(2, 100);
-//		  updateClockBuffer();
-//	  }
+	  if(timer_flag[0] == 1){
+		  setTimer(0, 100);
+		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+//		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
+	  if(timer_flag[1] == 1){
+		  setTimer(1, 25);
+		  update7SEG(index_led);
+		  if(index_led >= MAX_LED-1) index_led = 0;
+		  else index_led++;
+	  }
+	  if(timer_flag[2] == 1){
+		  setTimer(2, 100);
+		  updateClockBuffer();
+	  }
 	  if(timer_flag[3] == 1){
 		  setTimer(3,5);
 		  updateLEDMatrix(index_led_matrix++);
