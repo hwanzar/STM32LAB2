@@ -255,7 +255,7 @@ int main(void)
 		  updateClockBuffer();
 	  }
 	  if(timer_flag[3] == 1){
-		  setTimer(3,4);
+		  setTimer(3,5);
 		  updateLEDMatrix(index_led_matrix++);
 		  if(index_led_matrix >= MAX_LED_MATRIX-1) index_led_matrix = 1;
 	  }
